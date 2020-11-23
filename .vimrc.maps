@@ -1,4 +1,10 @@
 "-------------------------------------------------------------------------------
+" Config (The <Leader> key is mapped to \)
+"-------------------------------------------------------------------------------
+" Fast editing and reloading of the vimrc file
+nnoremap <silent> <Leader>ev :e <C-r>=resolve(expand("$DOTVIM/init.vim"))<CR><CR>
+
+"-------------------------------------------------------------------------------
 " Tabs
 "-------------------------------------------------------------------------------
 " Open current directory
@@ -35,12 +41,12 @@ nmap <C-w><down> <C-w>-
 map <C-a> <esc>ggVG<CR>
 
 
-
-nnoremap <silent>sf :<C-u>Defx -listed -resume -show-ignored-files      
-      \ -buffer-name=tab`tabpagenr()`
-      \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
-"\ -columns=indent:mark:icon:icons:filename:git:size
-
+"nnoremap <silent>sf :<C-u>Defx -listed -resume -show-ignored-files
+nnoremap <silent>sf :<C-u>Defx -resume -show-ignored-files
+		\ `expand('%:p:h')` -search=`expand('%:p')`<CR>
+		\ -buffer-name=tab`tabpagenr()`
+		\ -columns=indent:mark:icon:icons:filename:git:size
+		
 autocmd FileType defx call s:defx_my_settings()
 	function! s:defx_my_settings() abort
 	  " Define mappings
@@ -106,7 +112,6 @@ autocmd FileType defx call s:defx_my_settings()
 	  nnoremap <silent><buffer><expr> cd
 	  \ defx#do_action('change_vim_cwd')
 	endfunction
-
 
 
 call defx#custom#column('icon', {
