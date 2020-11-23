@@ -36,10 +36,10 @@ map <C-a> <esc>ggVG<CR>
 
 
 
-nnoremap <silent>sf :<C-u>Defx -listed -resume -show-ignored-files
-      \ -columns=indent:mark:icon:icons:filename:git:size
+nnoremap <silent>sf :<C-u>Defx -listed -resume -show-ignored-files      
       \ -buffer-name=tab`tabpagenr()`
       \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
+"\ -columns=indent:mark:icon:icons:filename:git:size
 
 autocmd FileType defx call s:defx_my_settings()
 	function! s:defx_my_settings() abort

@@ -1,15 +1,38 @@
+" Define OS variable
+let s:is_win = has('win32') || has('win64')
+let s:is_mac = !s:is_win && (has('mac') || has('macunix') || has('gui_macvim')
+            \ || system('uname') =~? '^darwin')
+
+if !has('nvim')
+	if s:is_win
+		let $DOTVIM = expand('$HOME/Vim')
+	else
+		let $DOTVIM = expand('$HOME')
+	endif
+else
+	if s:is_win
+		let $DOTVIM = expand('$HOME\AppData\Local\nvim')
+	else
+		let $DOTVIM = expand('$HOME/.config/nvim')
+	endif
+endif
 "-------------------------------------------------------------------------------
 " Dein
 "-------------------------------------------------------------------------------
+if s:is_win
+	let $DEIN = expand('$HOME/.cache/dein')
+else
+	let $DEIN = expand('$HOME\.cache\dein')
+endif
 if &compatible
   set nocompatible
 endif
-set runtimepath+=/Users/daikiharaguchi/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=$DEIN/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('/Users/daikiharaguchi/.cache/dein')
-  call dein#begin('/Users/daikiharaguchi/.cache/dein')
+if dein#load_state($DEIN)
+  call dein#begin($DEIN)
 
-  call dein#add('/Users/daikiharaguchi/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('$DEIN/repos/github.com/Shougo/dein.vim')
 	" Add or remove your plugins here like this:
 	call dein#add('Shougo/defx.nvim')
 
@@ -20,14 +43,9 @@ endif
 filetype plugin indent on
 syntax enable
 
-"set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Windows\ Compatible:h15
-try
-source ~/.vim_runtime/my_configs.vim
-catch
-endtry
-
 set number " Show current line number
 set relativenumber " Show relative line numbers
+set guioptions-=T "remove toolbar
 
 " tab shift width setting
 set tabstop=2
@@ -35,7 +53,6 @@ set softtabstop=0 noexpandtab
 set shiftwidth=2
 
 syntax enable
-set background=dark
 set nobackup
 " colorscheme solarized
 colorscheme srcery
@@ -46,4 +63,8 @@ set si "Smart indent
 "-------------------------------------------------------------------------------
 " imports
 "-------------------------------------------------------------------------------
-source /Users/daikiharaguchi/.config/nvim/.vimrc.maps
+source $DOTVIM\.vimrc.maps
+if s:is_win
+	source $DOTVIM\_vimrc.win
+endif
+
