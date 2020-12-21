@@ -20,9 +20,9 @@ endif
 " Dein
 "-------------------------------------------------------------------------------
 if s:is_win
-	let $DEIN = expand('$HOME/.cache/dein')
-else
 	let $DEIN = expand('$HOME\.cache\dein')
+else
+	let $DEIN = expand('$HOME/.cache/dein')
 endif
 if &compatible
   set nocompatible
@@ -35,6 +35,7 @@ if dein#load_state($DEIN)
   call dein#add('$DEIN/repos/github.com/Shougo/dein.vim')
 	" Add or remove your plugins here like this:
 	call dein#add('Shougo/defx.nvim')
+	call dein#add('Shougo/denite.nvim')
 
   call dein#end()
   call dein#save_state()
@@ -46,6 +47,7 @@ syntax enable
 set number " Show current line number
 set relativenumber " Show relative line numbers
 set guioptions-=T "remove toolbar
+
 
 " tab shift width setting
 set tabstop=2
@@ -63,8 +65,13 @@ set si "Smart indent
 "-------------------------------------------------------------------------------
 " imports
 "-------------------------------------------------------------------------------
-source $DOTVIM\.vimrc.maps
 if s:is_win
 	source $DOTVIM\_vimrc.win
+	source $DOTVIM\.vimrc.maps
+else
+	source $DOTVIM/.vimrc.maps
+	source $DOTVIM/denite.rc.vim
+	set clipboard=unnamedplus
 endif
+
 
