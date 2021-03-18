@@ -1,6 +1,6 @@
 Added to ~/.bash_aliases
 
-alias gd="git diff | subl"
+alias gd="git diff"
 alias ga="git add"
 alias gaa="git add --all"
 alias gbd="git branch -D"
